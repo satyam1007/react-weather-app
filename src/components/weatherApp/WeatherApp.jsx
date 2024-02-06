@@ -10,6 +10,26 @@ function WeatherApp() {
   const [data, setData] = useState({});
   const [input, setInput] = useState("");
 
+  let apiKey = "0aa3184fd23a64e15c3690d3db907af3";
+  let url = `https://api.openweathermap.org/data/2.5/weather?q=${input}&units=Metric&appid=${apiKey}`;
+
+  const iconMappings = {
+    "01d": clearIcon,
+    "01n": clearIcon,
+    "02d": cloudIcon,
+    "02n": cloudIcon,
+    "03d": drizzelIcon,
+    "03n": drizzelIcon,
+    "04d": drizzelIcon,
+    "04n": drizzelIcon,
+    "09d": rainIcon,
+    "09n": rainIcon,
+    "010d": rainIcon,
+    "010n": rainIcon,
+    "013d": snowIcon,
+    "013n": snowIcon,
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -18,52 +38,16 @@ function WeatherApp() {
       return;
     }
 
-    let apiKey = "0aa3184fd23a64e15c3690d3db907af3";
-
-    let url = `https://api.openweathermap.org/data/2.5/weather?q=${input}&units=Metric&appid=${apiKey}`;
-
     fetch(url)
       .then((res) => res.json())
       .then((userData) => {
         setData(userData);
-        if (
-          userData.weather[0].icon === "01d" ||
-          userData.weather[0].icon === "01n"
-        ) {
-          setWicon(clearIcon);
-        } else if (
-          userData.weather[0].icon === "02d" ||
-          userData.weather[0].icon === "02n"
-        ) {
-          setWicon(cloudIcon);
-        } else if (
-          userData.weather[0].icon === "03d" ||
-          userData.weather[0].icon === "03n"
-        ) {
-          setWicon(drizzelIcon);
-        } else if (
-          userData.weather[0].icon === "04d" ||
-          userData.weather[0].icon === "04n"
-        ) {
-          setWicon(drizzelIcon);
-        } else if (
-          userData.weather[0].icon === "09d" ||
-          userData.weather[0].icon === "09n"
-        ) {
-          setWicon(rainIcon);
-        } else if (
-          userData.weather[0].icon === "010d" ||
-          userData.weather[0].icon === "010n"
-        ) {
-          setWicon(rainIcon);
-        } else if (
-          userData.weather[0].icon === "013d" ||
-          userData.weather[0].icon === "013n"
-        ) {
-          setWicon(snowIcon);
-        } else {
-          setWicon(clearIcon);
-        }
+
+        let iconCode = userData.weather[0].icon;
+        let selectedIcon = iconMappings[iconCode] || clearIcon;
+
+        setWicon(selectedIcon);
+
         setInput("");
       })
       .catch((error) => {
