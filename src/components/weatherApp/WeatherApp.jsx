@@ -171,7 +171,7 @@ function WeatherApp() {
               <div className="windSpeed">Wind Speed {data.wind.speed}</div>
             )}
             {data.sys && data.sys.sunrise && (
-              <div className="sunRise">Sunrice Time is {data.sys.sunrise}</div>
+              <div className="sunRise">Sunrise Time is {data.sys.sunrise}</div>
             )}
             {data.sys && data.sys.sunset && (
               <div className="sunSet">Sunset Time is {data.sys.sunset}</div>
