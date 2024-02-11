@@ -10,11 +10,7 @@ function Weather(props) {
     setInput(city);
   }, [city]);
 
-  return (
-    <div>
-      <h2>Weather Forecast for {city}</h2>
-    </div>
-  );
+  return;
 }
 
 export default Weather;
